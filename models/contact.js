@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const { handdleMongooseError } = require("../middlewares");
+const { handdleMongooseError } = require("../helpers");
 const Joi = require("joi");
 
 const nameList = [true, "Set name for contact"];
@@ -20,9 +20,14 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+  owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
   },
   { versionKey: false, timestamps: true }
 );
+
 
 contactSchema.post("save", handdleMongooseError);
 
